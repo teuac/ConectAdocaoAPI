@@ -1,21 +1,39 @@
 package com.example.connectadocaoapi.Users;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class UsersEntity {
+@Data
+@Table(name = "Users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
+public class UsersEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Setter(AccessLevel.NONE)
     private Long id;
     private String name;
+    @UniqueElements
     private String email;
     private String password;
-    private Integer orderType;
+    private Integer userType;
+    private Instant registeredIn;
+
+    @OneToMany(mappedBy = "PhoneNumberEntity", cascade = CascadeType.ALL)
+    private List<PhoneNumberEntity> phone_number = new ArrayList<>();
+
+
+
 }
