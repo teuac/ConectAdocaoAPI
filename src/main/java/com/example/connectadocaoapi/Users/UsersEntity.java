@@ -22,8 +22,7 @@ public class UsersEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Setter(AccessLevel.NONE)
-    private Long id;
+    private String id;
     private String name;
     @UniqueElements
     private String email;
@@ -31,7 +30,7 @@ public class UsersEntity implements Serializable {
     private Integer userType;
     private Instant registeredIn;
 
-    @OneToMany(mappedBy = "PhoneNumberEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<PhoneNumberEntity> phone_number = new ArrayList<>();
 
 
