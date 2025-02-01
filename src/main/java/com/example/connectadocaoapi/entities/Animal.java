@@ -29,6 +29,9 @@ public class Animal implements Serializable {
     @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL)
     private List<AnimalPhotos> animal_photos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "animal", cascade =  CascadeType.ALL)
+    private List<Announcement> announcements = new ArrayList<>();
+
 
 
 }

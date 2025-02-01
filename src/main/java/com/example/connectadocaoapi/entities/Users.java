@@ -34,6 +34,9 @@ public class Users implements Serializable {
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
 
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Announcement> announcements = new ArrayList<>();
+
 
 
 }
