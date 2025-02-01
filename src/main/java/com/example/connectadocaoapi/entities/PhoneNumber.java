@@ -1,26 +1,23 @@
-package com.example.connectadocaoapi.Users;
+package com.example.connectadocaoapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
-public class PhoneNumberEntity {
+@Table(name = "phone_number")
+@Data
+public class PhoneNumber {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
-    @Getter @Setter
+
     private String phone_number;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UsersEntity user;
+    private Users user;
 
 }

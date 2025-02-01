@@ -1,4 +1,4 @@
-package com.example.connectadocaoapi.Users;
+package com.example.connectadocaoapi.entities;
 
 
 import jakarta.persistence.*;
@@ -9,14 +9,13 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "Users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
-public class UsersEntity implements Serializable {
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,7 +30,10 @@ public class UsersEntity implements Serializable {
     private Instant registeredIn;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<PhoneNumberEntity> phone_number = new ArrayList<>();
+    private List<PhoneNumber> phone_number = new ArrayList<>();
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Address> address = new ArrayList<>();
 
 
 
