@@ -3,7 +3,7 @@ package com.example.connectadocaoapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
+
 
 import java.io.Serializable;
 import java.time.Instant;
