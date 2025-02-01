@@ -23,7 +23,6 @@ public class Users implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    @UniqueElements
     private String email;
     private String password;
     private Integer userType;
