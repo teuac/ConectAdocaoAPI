@@ -1,12 +1,13 @@
 package com.example.connectadocaoapi.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "phone_number")
-@Data
-public class PhoneNumber {
+public class PhoneNumber implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -14,10 +15,41 @@ public class PhoneNumber {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String phone_number;
+    private String number;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
+    public PhoneNumber(String number) {
+        this.number = number;
+    }
+
+    public PhoneNumber() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

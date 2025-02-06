@@ -10,6 +10,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.List;
+
 @Service
 public class UsersService {
 
@@ -27,19 +30,26 @@ public class UsersService {
     @Transactional
     public Users saveUser(Users user){
 
-        if(user.getAddress() != null){
-            for(Address address : user.getAddress()){
-                address.setUser(user);
-            }
+        if(user.getRegisteredIn() == null){
+            user.setRegisteredIn(new Date(System.currentTimeMillis()));
         }
-
-        if(user.getPhone_number() != null){
-            for(PhoneNumber phoneNumber : user.getPhone_number()){
+        if (user.getPhone_number() != null) {
+            for (PhoneNumber phoneNumber : user.getPhone_number()) {
                 phoneNumber.setUser(user);
             }
         }
 
+        if (user.getAddress() != null) {
+            for (Address address : user.getAddress()) {
+                address.setUser(user);
+            }
+        }
         return usersRepository.save(user);
+    }
+
+    public List<Users> getAllUsers(){
+
+        return usersRepository.findAll();
     }
 
 }

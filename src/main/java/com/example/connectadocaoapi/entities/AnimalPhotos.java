@@ -1,12 +1,11 @@
 package com.example.connectadocaoapi.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.io.Serializable;
 
 @Entity
-@Data
+
 public class AnimalPhotos implements Serializable {
 
     private static final Long serialVersionUID = 1L;

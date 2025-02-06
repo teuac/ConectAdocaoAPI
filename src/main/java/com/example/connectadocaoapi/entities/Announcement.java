@@ -2,13 +2,12 @@ package com.example.connectadocaoapi.entities;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+
 
 import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
-@Data
 public class Announcement implements Serializable {
 
     private static final Long serialVersionUID = 1L;
