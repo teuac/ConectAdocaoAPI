@@ -33,17 +33,12 @@ public class Users implements Serializable {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<PhoneNumber> phone_number = new ArrayList<>();
 
-
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Address> address = new ArrayList<>();
 
-
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Announcement> announcements = new ArrayList<>();
 
 

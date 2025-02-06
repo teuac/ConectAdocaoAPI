@@ -28,7 +28,6 @@ public class Address implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private Users user;
 
 

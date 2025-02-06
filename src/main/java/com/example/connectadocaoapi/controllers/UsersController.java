@@ -1,5 +1,6 @@
 package com.example.connectadocaoapi.controllers;
 
+import com.example.connectadocaoapi.dtos.UsersDTO;
 import com.example.connectadocaoapi.entities.Address;
 import com.example.connectadocaoapi.entities.PhoneNumber;
 import com.example.connectadocaoapi.entities.Users;
@@ -19,14 +20,15 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping
-    public ResponseEntity<Users> createUser(@RequestBody Users user){
-        Users savedUser = usersService.saveUser(user);
+    public ResponseEntity<UsersDTO> createUser(@RequestBody Users user) {
+        UsersDTO savedUser = usersService.saveUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Users>> listAllUsers(){
-        List<Users> users = usersService.getAllUsers();
+    public ResponseEntity<List<UsersDTO>> listAllUsers() {
+        List<UsersDTO> users = usersService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+    
 }

@@ -30,7 +30,6 @@ public class Announcement implements Serializable {
     private Animal animal;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private Users user;
 
     public Announcement() {

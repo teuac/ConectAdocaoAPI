@@ -1,8 +1,10 @@
 package com.example.connectadocaoapi.services;
 
+import com.example.connectadocaoapi.dtos.UsersDTO;
 import com.example.connectadocaoapi.entities.Address;
 import com.example.connectadocaoapi.entities.PhoneNumber;
 import com.example.connectadocaoapi.entities.Users;
+import com.example.connectadocaoapi.exceptions.ResourceNotFoundException;
 import com.example.connectadocaoapi.repositories.AddressRepostory;
 import com.example.connectadocaoapi.repositories.PhoneNumberRepository;
 import com.example.connectadocaoapi.repositories.UsersRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersService {
@@ -25,12 +28,9 @@ public class UsersService {
     @Autowired
     private AddressRepostory addressRepostory;
 
-
-
     @Transactional
-    public Users saveUser(Users user){
-
-        if(user.getRegisteredIn() == null){
+    public UsersDTO saveUser(Users user) {
+        if (user.getRegisteredIn() == null) {
             user.setRegisteredIn(new Date(System.currentTimeMillis()));
         }
         if (user.getPhone_number() != null) {
@@ -44,12 +44,16 @@ public class UsersService {
                 address.setUser(user);
             }
         }
-        return usersRepository.save(user);
+
+        Users savedUser = usersRepository.save(user);
+        return new UsersDTO(savedUser);  // Retorna o DTO após salvar
     }
 
-    public List<Users> getAllUsers(){
-
-        return usersRepository.findAll();
+    public List<UsersDTO> getAllUsers() {
+        List<Users> users = usersRepository.findAll();
+        return users.stream()
+                .map(UsersDTO::new)  // Converte cada entidade Users em UsersDTO
+                .collect(Collectors.toList());
     }
 
 }
