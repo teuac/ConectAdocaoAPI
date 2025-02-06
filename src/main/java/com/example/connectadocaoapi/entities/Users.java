@@ -1,6 +1,8 @@
 package com.example.connectadocaoapi.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -10,6 +12,7 @@ import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = {
@@ -28,13 +31,19 @@ public class Users implements Serializable {
     private Integer userType;
     private Date registeredIn;
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<PhoneNumber> phone_number = new ArrayList<>();
 
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    private List<Address> address = new ArrayList<>();
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Address> address = new ArrayList<>();
+
+
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Announcement> announcements = new ArrayList<>();
 
 
@@ -120,5 +129,32 @@ public class Users implements Serializable {
 
     public void setAnnouncements(List<Announcement> announcements) {
         this.announcements = announcements;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Users users = (Users) o;
+        return Objects.equals(id, users.id) && Objects.equals(name, users.name) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(userType, users.userType) && Objects.equals(registeredIn, users.registeredIn) && Objects.equals(phone_number, users.phone_number) && Objects.equals(address, users.address) && Objects.equals(announcements, users.announcements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, password, userType, registeredIn, phone_number, address, announcements);
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                ", registeredIn=" + registeredIn +
+                ", phone_number=" + phone_number +
+                ", address=" + address +
+                ", announcements=" + announcements +
+                '}';
     }
 }

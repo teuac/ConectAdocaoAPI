@@ -1,10 +1,12 @@
 package com.example.connectadocaoapi.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.apache.catalina.User;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Address implements Serializable {
@@ -26,6 +28,7 @@ public class Address implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
 
@@ -98,7 +101,28 @@ public class Address implements Serializable {
         this.user = user;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id) && Objects.equals(state, address.state) && Objects.equals(city, address.city) && Objects.equals(street, address.street) && Objects.equals(postal_code, address.postal_code) && Objects.equals(number, address.number) && Objects.equals(user, address.user);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, state, city, street, postal_code, number, user);
+    }
 
-
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", postal_code='" + postal_code + '\'' +
+                ", number='" + number + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

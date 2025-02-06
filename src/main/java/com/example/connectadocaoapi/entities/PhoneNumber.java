@@ -1,9 +1,11 @@
 package com.example.connectadocaoapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "phone_number")
@@ -19,14 +21,16 @@ public class PhoneNumber implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
-    public PhoneNumber(String number) {
-        this.number = number;
-    }
 
     public PhoneNumber() {
 
+    }
+
+    public PhoneNumber(String number) {
+        this.number = number;
     }
 
     public Long getId() {
@@ -51,5 +55,26 @@ public class PhoneNumber implements Serializable {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        PhoneNumber that = (PhoneNumber) o;
+        return Objects.equals(id, that.id) && Objects.equals(number, that.number) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, number, user);
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneNumber{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", user=" + user +
+                '}';
     }
 }
